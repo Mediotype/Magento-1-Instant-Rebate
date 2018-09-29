@@ -1,0 +1,128 @@
+<?php
+/**
+ *
+ */
+$helper = Mage::helper('mediotype_instant_rebate');
+$customerHelper = Mage::helper('customer');
+?>
+<?php if(!is_null($helper->getCustomerZip())): ?>
+<div id="instantrebate-ship-match-pop" class="customprompt ship-match-pop-wrapper">
+    <h3><?php echo $this->__('Warning') ?></h3>
+    <p><?php echo $helper->getZipNotMatchingText() ?></p>
+    <a class="hand" onclick="closeWarning()"><?php echo $this->__('Edit my shipping zip code on this page') ?></a><br />
+    <a href="<?php echo $this->getUrl('checkout/cart') ?>"><?php echo $this->__('Return to shopping cart to verify eligibility') ?></a><br />
+    <a class="hand" onclick="closeClick('instantrebate-ship-match-pop')"><?php echo $this->__('Proceed using new zip code (ineligible rebates will be removed)') ?></a>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    //attach event to shipping zip input and perhaps even billing zip input
+    var matchPop = $('instantrebate-ship-match-pop');
+    var rebateZip = '<?php echo $helper->getCustomerZip() ?>';
+    var billingZip = $('billing:postcode');
+    var shippingZip = $('shipping:postcode');
+    billingZip.observe('blur', function(e){
+        billZipMatch(billingZip.value);
+    });
+
+    shippingZip.observe('blur', function(e){
+        shipZipMatchPrompt(shippingZip.value);
+    });
+
+    function billZipMatch(zip)
+    {
+        var shipSameAsBill = $('shipping:same_as_billing');
+        var billUseForShipYes = $('billing:use_for_shipping_yes');
+        var billUseForShipNo = $('billing:use_for_shipping_no');
+        if(zip != rebateZip)
+        {
+            shipSameAsBill.checked = false;
+            shipSameAsBill.disable();
+            billUseForShipYes.disable();
+            billUseForShipNo.checked = 'checked';
+        }
+        else
+        {
+            shipSameAsBill.checked = true;
+            shipSameAsBill.enable();
+            billUseForShipYes.enable();
+            billUseForShipYes.checked = 'checked';
+        }
+    }
+
+    function shipZipMatchPrompt(zip)
+    {
+        if(zip != rebateZip)
+        {
+            var offset = shippingZip.cumulativeOffset();
+            matchPop.setStyle({top:offset.top+'px'});
+            customPrompt('instantrebate-ship-match-pop');
+            $('overlay').observe('click', function(e){
+                closeWarning();
+            });
+        }
+    }
+
+    function closeWarning()
+    {
+        closeClick('instantrebate-ship-match-pop');
+        shippingZip.focus();
+    }
+
+    function setOptIn(id)
+    {
+        new Ajax.Request(
+            '<?php echo $helper->getOptInUrl() ?>',
+            {
+                parameters: {optin: $(id).checked}
+            });
+    }
+
+    <?php if($customerHelper->isLoggedIn()): ?>
+    var billingSelect = $('billing-address-select');
+    var shippingSelect = $('shipping-address-select');
+
+    billingSelect.observe('change', function(e){
+        var address = billingSelect.selectedIndex >= 0 ? billingSelect.options[billingSelect.selectedIndex].innerHTML : '';
+        var shipSameAsBill = $('shipping:same_as_billing');
+        var billUseForShipYes = $('billing:use_for_shipping_yes');
+        var billUseForShipNo = $('billing:use_for_shipping_no');
+        if(checkAddressForZip(address) == -1)
+        {
+            shipSameAsBill.checked = false;
+            shipSameAsBill.disable();
+            billUseForShipYes.disable();
+            billUseForShipNo.checked = 'checked';
+        }
+        else
+        {
+            shipSameAsBill.checked = true;
+            shipSameAsBill.enable();
+            billUseForShipYes.enable();
+            billUseForShipYes.checked = 'checked';
+        }
+        billing.newAddress(!billingSelect.value);
+    });
+
+    shippingSelect.observe('change', function(e){
+
+        var address = shippingSelect.selectedIndex >= 0 ? shippingSelect.options[shippingSelect.selectedIndex].innerHTML : '';
+        if(checkAddressForZip(address) == -1)
+        {
+            var offset = shippingZip.cumulativeOffset();
+            matchPop.setStyle({top:offset.top+'px'});
+            customPrompt('instantrebate-ship-match-pop');
+            $('overlay').observe('click', function(e){
+                closeWarning();
+            });
+        }
+        shipping.newAddress(!shippingSelect.value);
+    });
+
+    function checkAddressForZip(address)
+    {
+        return address.indexOf(rebateZip+',');
+    }
+    <?php endif; ?>
+    //]]>
+</script>
+<?php endif; ?>

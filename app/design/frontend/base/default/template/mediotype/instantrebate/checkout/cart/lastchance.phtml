@@ -1,0 +1,32 @@
+<?php
+/**
+ * @var $this Mediotype_InstantRebate_Block_InstantRebate
+ */
+$helper = Mage::Helper('mediotype_instant_rebate');
+$available = $this->getCustomerRebateAvailable();
+?>
+<?php if(is_null($this->getCustomerZip()) && $available): ?>
+<div class="instantrebate-lastchance-wrapper">
+    <div class="instantrebate-lastchance">
+        <a class="hand" onclick="lastChanceClick()"><?php echo $helper->getLastChanceText() ?></a>
+        <p><?php echo $this->__('Rebates apply to online orders only. Rebates may not be retro-actively applied to completed orders.') ?></p>
+    </div>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    function lastChanceClick(){
+        $$('.rebate-toggle').each(function (item)
+        {
+            item.toggleClassName('no-display');
+        });
+        var form = $('instantrebate-form');
+        form.toggleClassName('no-display');
+        var p = form.next();
+        if(!p.hasClassName('no-display')){p.addClassName('no-display');}
+        form.scrollTo();
+        $('rebatezip').focus();
+    }
+
+    //]]>
+</script>
+<?php endif; ?>

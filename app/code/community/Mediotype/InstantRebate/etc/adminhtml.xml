@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <promo>
+            <children>
+                <instant_rebate>
+                    <title>Instant Rebates</title>
+                    <action>mediotype_instantrebate/adminhtml_index/index</action>
+                </instant_rebate>
+            </children>
+        </promo>
+        <report>
+            <children>
+                <instant_rebate>
+                    <title>Instant Rebates</title>
+                    <children>
+                        <products_sold_by_rebate>
+                            <title>Products Sold</title>
+                            <action>mediotype_instantrebate/adminhtml_reports/productsSoldByRebate</action>
+                        </products_sold_by_rebate>
+                        <customer_information_by_rebate>
+                            <title>Customer Information</title>
+                            <action>mediotype_instantrebate/adminhtml_reports/customerInformationByRebate</action>
+                        </customer_information_by_rebate>
+                    </children>
+                </instant_rebate>
+            </children>
+        </report>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <promo>
+                        <title>Mediotype</title>
+                        <children>
+                            <instant_rebate>
+                                <title>Instant Rebates</title>
+                            </instant_rebate>
+                        </children>
+                    </promo>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <instant_rebate_config>
+                                        <title>Mediotype | Instant Rebate Config</title>
+                                    </instant_rebate_config>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

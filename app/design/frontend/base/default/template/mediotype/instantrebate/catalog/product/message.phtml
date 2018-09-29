@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var $this Mediotype_InstantRebate_Block_Catalog_Product_Message
+ */
+$rebateProducts = $this->filterProductRebatesByZip();
+?>
+<?php if($rebateProducts != null): ?>
+    <?php if(count($rebateProducts->getItems()) > 0): ?>
+        <?php foreach($rebateProducts->getItems() as $product): ?>
+            <?php $message = $product->getProductMessage() ?>
+            <p class="instantrebate-product-message"><?php echo $this->__('Discount available') ?>: <?php echo number_format($product->getData('instant_rebate_amount'),2) ?></p>
+            <?php if($message): ?><p class="instantrebate-product-message"><?php echo $message ?></p><br /><?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,82 @@
+<?php
+/** @var $this Mediotype_InstantRebate_Block_Adminhtml_Rebates_Edit_Tab_Info */
+$rebate = $this->getModel();
+?>
+<div id="productinfo">
+    <?php echo $this->getProductInfo(); ?>
+</div>
+<?php echo $this->getRebateProductGrid() ?>
+<script type="text/javascript">
+
+    var pid;
+    var prid = jQuery("#products");
+
+    jQuery( function() {
+
+        var resetBtn;
+
+        jQuery( 'button.scalable' ).each( function() {
+            if( jQuery( 'span', this ).html() == "Reset Filter" )
+                jQuery( this ).click( function() {
+                    prid.val( '' );
+                })
+                    .ajaxComplete( function() {
+                        console.log( 'request completed' );
+                    });
+        });
+
+        if( prid.val() === '' ) {
+            pid = new Array();
+            jQuery('input:checkbox').each( function() {
+                if( this.checked && this.value != "on" )
+                    pid.push( this.value );
+            });
+            pid.sort();
+        } else {
+            pid = prid.val().split( ',' );
+        }
+
+        jQuery('input:checkbox').click(function() {
+            pid = new Array();
+            jQuery('input:checkbox:checked').each(function(i) {
+                    if( this.checked && this.value != "on" ) {
+                        pid.push( this.value );
+                    }
+                });
+            prid.val( pid.join( ',' ) );
+            jQuery.ajax({
+            url: "<?php echo $this->getUpdateProductInfoUrl() ?>?isAjax=true",
+            data: {
+                products: prid.val(),
+                form_key: window.FORM_KEY,
+                id:<?php echo $this->getRequest()->getParam('id') ?>
+            },
+            type: "POST",
+            dataType: "html",
+            success: function (data) {
+                jQuery('#productinfo').html(data);
+            },
+            error: function () {
+                alert("Sorry, there was a problem!");
+            }
+        });
+        console.log( prid.val() );
+        });
+    });
+
+    function removeProduct(elem, id) {
+        elem.parent().parent().remove();
+        pid = new Array();
+        jQuery('input:checkbox:checked').each(function(i) {
+            if( this.checked && this.value != "on" ) {
+                if(this.value == id) {
+                    this.checked = false;
+                } else {
+                    pid.push( this.value );
+                }
+            }
+        });
+        prid.val( pid.join( ',' ) );
+        console.log( prid.val() );
+    }
+</script>

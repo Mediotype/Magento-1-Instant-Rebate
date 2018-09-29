@@ -1,0 +1,56 @@
+{
+    "rebate_title": {
+        "required": true,
+        "regex": "/.+/",
+        "trim": true
+    },
+    "max_instant_rebate_uses": {
+        "required": true,
+        "trim": true,
+        "cast": "integer"
+    },
+    "instant_rebate_amount": {
+        "required": true,
+        "trim": true,
+        "strip": ",$",
+        "cast": "double"
+    },
+    "zip_codes": {
+        "required": true,
+        "trim": true
+    },
+    "instant_rebate_sponsor": {
+        "required": true,
+        "trim": true
+    },
+    "marketing_message": {
+        "required": true,
+        "trim": true
+    },
+    "product_message": {
+        "trim": true
+    },
+    "amount_exceeded_message": {
+        "trim": true
+    },
+    "sponsor_logo_url": {
+        "trim": true,
+        "download": "media/sponsors"
+    },
+    "start_date": {
+        "trim": true
+    },
+    "end_date": {
+        "trim": true
+    },
+    "max_program_amount": {
+        "trim": true,
+        "strip": ",$",
+        "cast": "double"
+    },
+    "product_skus": {
+        "required": true,
+        "trim": true,
+        "explode": ","
+    }
+}

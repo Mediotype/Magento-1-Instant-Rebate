@@ -1,0 +1,10 @@
+<?php
+/**
+ * @var $this Mediotype_InstantRebate_Block_GeoRebate
+ */
+/** @var Bool $showRebate */
+$showRebate = $this->showRebatePrompt();
+?>
+<?php if($showRebate): ?>
+    <?php echo $this->getChildHtml('instant-rebate-header') ?>
+<?php endif; ?>

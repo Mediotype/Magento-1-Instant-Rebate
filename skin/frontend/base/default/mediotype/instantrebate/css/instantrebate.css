@@ -1,0 +1,143 @@
+/**
+Mediotype Instant Rebate
+@author R. Dale Owen
+contains all css pertaining to the InstantRebate module
+*/
+
+.hand {
+    cursor: pointer
+}
+
+.customprompt {
+    display:none
+}
+
+.customprompt.active {
+    display:block;
+    position:absolute;
+    top:100px;
+    z-index:101
+}
+
+.overlay {
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:100;
+    width:100%;
+    height:100%;
+    background:#000;
+    opacity:.45
+}
+
+.instantrebate-header-wrapper {
+    padding: 5px 12px 0;
+    overflow: hidden
+}
+
+.instantrebate-header-wrapper .btn-remove {
+    cursor:pointer;
+    float: right;
+    margin-top:5px
+}
+
+.instantrebate-header {
+    float: left
+}
+
+.instantrebate-header input[type="text"] {
+    width: 100px
+}
+
+a.rebate-toggle {
+    cursor:pointer;
+    float:right
+}
+
+.instantrebate-pop-wrapper {
+    padding:5px;
+    border: 1px solid #3399cc;
+    background:#fff;
+    width:400px;
+    max-height:500px;
+    overflow:scroll
+}
+
+.instantrebate-pop-top {
+    overflow:hidden
+}
+
+.instantrebate-pop-top h3 {
+    float:left
+}
+
+.instantrebate-pop-top .btn-remove {
+    float:right
+}
+
+.instantrebate-pop-bottom {
+    margin-top:10px
+}
+
+.instantrebate-pop-items-wrapper {
+    padding:5px 15px;
+    max-height:300px;
+    overflow:scroll
+}
+
+.instantrebate-pop-items {
+    padding:5px 0;
+    margin-bottom:5px;
+    overflow:hidden;
+    border-top: 1px solid #3399cc
+}
+
+.instantrebate-pop-items .product-description {
+    width:270px;
+    text-align:center;
+    float:right
+}
+
+.instantrebate-pop-items .product-description .product-name {
+    text-align:left
+}
+
+.instantrebate-pop-items .product-description p {
+    margin-bottom:5px;
+    text-align:left
+}
+
+.instantrebate-pop-items .product-img {
+    float:left
+}
+
+.instantrebate-product-message {
+    color:#3399cc
+}
+
+.instantrebate-lastchance-wrapper {
+    padding:5px
+}
+
+.instantrebate-lastchance {
+    padding:5px;
+    border:1px solid #3399cc;
+    background: #fff
+}
+
+.ship-match-pop-wrapper {
+    padding:5px;
+    border: 1px solid #3399cc;
+    background:#fff;
+    width:400px;
+    text-align:center
+}
+
+.ship-match-pop-wrapper h3{
+    color:#aa0000
+}
+
+instantrebate-success img {
+    max-height: 100px;
+    max-width: 100px
+}

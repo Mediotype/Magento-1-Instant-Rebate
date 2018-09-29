@@ -1,0 +1,11 @@
+<?php
+/**
+ * @var $this Mediotype_InstantRebate_Block_Checkout_Cart_Item_Renderer
+ */
+$rebateProducts = $this->filterProductRebatesByZip();
+?>
+<?php if($rebateProducts): ?>
+    <?php foreach($rebateProducts as $message): ?>
+        <p class="instantrebate-product-message"><?php echo $message->getProductMessage() ?></p><br />
+    <?php endforeach; ?>
+<?php endif; ?>

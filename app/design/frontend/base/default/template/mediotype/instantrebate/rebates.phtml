@@ -1,0 +1,43 @@
+<?php
+/**
+ * @var $this Mediotype_InstantRebate_Block_InstantRebate
+ */
+//TODO change this to only grab what matched the zip
+$rebates = $this->getRebatesByZip();
+$single = (count($rebates) <= 1)? true: false;
+?>
+<div class="instantrebate-pop-wrapper">
+    <div class="instantrebate-pop-top">
+        <h3><?php echo $this->__('Shipping Code') ?> <?php echo $this->getCustomerZip() ?></h3>
+        <a class="btn-remove" onclick="closeClick('instantrebate-pop')">&nbsp;</a>
+    </div>
+    <?php if(!$single): ?>
+    <p><?php echo $this->__('You may qualify for the following rebates:') ?></p>
+    <?php endif; ?>
+    <div class="<?php if($single): ?>no-display <?php endif; ?>instantrebate-pop-list">
+        <?php foreach($rebates as $rebate): ?>
+            <input type="checkbox" name="rebate-<?php echo $rebate->getId() ?>" value="rebate-<?php echo $rebate->getId() ?>" onclick="toggleRebateInfo(this.value)" />
+            <label for="rebate-<?php echo $rebate->getId() ?>"><?php echo $rebate->getInstantRebateSponsor() ?></label>
+        <?php endforeach; ?>
+    </div>
+    <?php foreach($rebates as $rebate): ?>
+    <div class="instantrebate-pop-bottom <?php if(!$single): ?>no-display <?php endif; ?>rebate-<?php echo $rebate->getId() ?>">
+        <div class="instantrebate-pop-message">
+            <?php echo $rebate->getMarketingMessage() ?>
+        </div>
+        <div class="instantrebate-pop-items-wrapper ">
+            <?php foreach($rebate->getProductCollection() as $rebateProduct): ?>
+                <?php $product = $rebateProduct->getProduct(); ?>
+                <div class="instantrebate-pop-items">
+                    <a class="product-img" href="<?php echo $product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($product, 'small_image'), null, true) ?>" class="product-image"><img src="<?php echo $this->helper('catalog/image')->init($product, 'small_image')->resize(75); ?>" width="75" height="75" alt="<?php echo $this->stripTags($this->getImageLabel($product, 'small_image'), null, true) ?>" /></a>
+                    <div class="product-description">
+                        <h3 class="product-name"><a href="<?php echo $product->getProductUrl() ?>" ><?php echo $product->getName() ?></a></h3>
+                        <p><?php echo $product->getShortDescription() ?></p>
+                        <a class="button" href="<?php echo $product->getProductUrl() ?>" ><?php echo $this->__('View Product') ?></a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>

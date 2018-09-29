@@ -1,0 +1,14 @@
+<?php
+/**
+ * @var $this Mediotype_InstantRebate_Block_Checkout_Onepage_Success
+ */
+$rebatesArray = $this->getRebates();
+?>
+<?php if(!empty($rebatesArray)): ?>
+    <?php foreach($rebatesArray as $rebate): ?>
+    <div class="instantrebate-success">
+        <img src="<?php echo $rebate->getLogoUrl() ?>" alt="<?php echo $rebate->getData('rebate_title') ?>" />
+        <?php echo $rebate->getData('marketing_message') ?>
+    </div>
+    <?php endforeach; ?>
+<?php endif; ?>

@@ -1,0 +1,7 @@
+app/code/community/Mediotype/InstantRebate/ app/code/community/Mediotype/InstantRebate/
+app/design/frontend/base/default/layout/mediotype/instant-rebate/instantrebate.xml app/design/frontend/base/default/layout/mediotype/instant-rebate/instantrebate.xml
+app/design/adminhtml/default/default/layout/mediotype/instant-rebate/instantrebate.xml app/design/adminhtml/default/default/layout/mediotype/instant-rebate/instantrebate.xml
+app/design/adminhtml/default/default/template/mediotype/instantrebate/ app/design/adminhtml/default/default/template/mediotype/instantrebate/
+app/design/frontend/base/default/template/mediotype/instantrebate/ app/design/frontend/base/default/template/mediotype/instantrebate/
+app/etc/modules/Mediotype_InstantRebate.xml app/etc/modules/Mediotype_InstantRebate.xml
+skin/frontend/base/default/mediotype/instantrebate/ skin/frontend/base/default/mediotype/instantrebate/

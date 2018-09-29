@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <mediotype_instant_rebate_adminhtml_index_index>
+        <reference name="content">
+            <block type="mediotype_instant_rebate/adminhtml_rebates" name="mediotype_instant_rebate_grid_container">
+            </block>
+        </reference>
+    </mediotype_instant_rebate_adminhtml_index_index>
+
+    <mediotype_instant_rebate_adminhtml_index_edit>
+        <update handle="editor"/>
+    </mediotype_instant_rebate_adminhtml_index_edit>
+
+    <mediotype_instant_rebate_adminhtml_import_index>
+        <update handle="editor"/>
+        <reference name="content">
+            <block type="mediotype_instant_rebate/adminhtml_form_import_container" name="mediotype_instant_rebate_import_container">
+            </block>
+        </reference>
+    </mediotype_instant_rebate_adminhtml_import_index>
+
+    <mediotype_instant_rebate_adminhtml_reports_index>
+        <reference name="content">
+        </reference>
+    </mediotype_instant_rebate_adminhtml_reports_index>
+
+    <mediotype_instant_rebate_adminhtml_reports_productssoldbyrebate>
+        <reference name="content">
+            <block type="mediotype_instant_rebate/adminhtml_reports_products" name="productsSoldByRebate_Grid"/>
+        </reference>
+    </mediotype_instant_rebate_adminhtml_reports_productssoldbyrebate>
+
+    <mediotype_instant_rebate_adminhtml_reports_customerinformationbyrebate>
+        <reference name="content">
+            <block type="mediotype_instant_rebate/adminhtml_reports_customers" name="customerInformationByRebate_Grid"/>
+        </reference>
+    </mediotype_instant_rebate_adminhtml_reports_customerinformationbyrebate>
+</layout>

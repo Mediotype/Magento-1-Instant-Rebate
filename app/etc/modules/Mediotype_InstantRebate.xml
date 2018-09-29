@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Mediotype_InstantRebate>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Mediotype_InstantRebate>
+        <depends>
+            <Mediotype_Core/>
+            <Mediotype_Import/>
+            <Mage_Core/>
+            <Mediotype_MagentoGuzzle/>
+            <Mediotype_MaxMindGeo/>
+            <Aoe_LayoutConditions/>
+        </depends>
+    </modules>
+</config>

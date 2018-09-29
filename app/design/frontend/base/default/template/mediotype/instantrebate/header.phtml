@@ -1,0 +1,72 @@
+<?php /**
+ * @var $this Mediotype_InstantRebate_Block_InstantRebate
+ */
+$helper = Mage::helper('mediotype_instant_rebate');
+$zip = $this->getCustomerZip();
+$available = $this->getCustomerRebateAvailable();
+?>
+<?php //TODO add geo location stuff ?>
+<div class="instantrebate-header-wrapper">
+    <a class="<?php if (is_null($zip) && $available): ?>no-display <?php endif; ?>rebate-toggle"><?php echo $this->__('Check for instant rebates in your area') ?></a>
+
+    <form id="instantrebate-form" class="instantrebate-header <?php if (!is_null($zip)): ?>no-display <?php endif; ?>"
+          method="post">
+        <label for="rebateid"><?php echo $helper->getZipLabelText() ?></label>
+        <input type="text" name="rebatezip" id="rebatezip" class="required-entry validate-number" maxlength="5"/>
+        <button onclick="ajaxRebates()">Submit</button>
+    </form>
+    <p class="no-display instantrebate-header"><?php echo $helper->getRebateUnavailableText() ?></p>
+    <a class="btn-remove rebate-toggle <?php if (!is_null($zip)): ?>no-display <?php endif; ?>">&nbsp;</a>
+</div>
+<div id="instantrebate-pop" class="customprompt"></div>
+<script type="text/javascript">
+    //<![CDATA[
+    var rebateForm = new VarienForm('instantrebate-form');
+    Event.observe('instantrebate-form', 'submit', function (event) {
+        Event.stop(event);
+    });
+    $$('.rebate-toggle').each(function (item) {
+        item.onclick = function(){
+            toggleDisplays();
+        };
+    });
+
+    function toggleDisplays()
+    {
+        $$('.rebate-toggle').each(function (item) {
+            item.toggleClassName('no-display');
+        });
+        var form = $('instantrebate-form');
+        form.toggleClassName('no-display');
+        var p = form.next();
+        if (!p.hasClassName('no-display')) {
+            p.addClassName('no-display');
+        }
+    }
+
+    function ajaxRebates() {
+        if (rebateForm.validator.validate()) {
+            new Ajax.Updater('instantrebate-pop',
+                '<?php echo $this->getRebatesUrl() ?>',
+                {
+                    parameters: {rebatezip: $('rebatezip').value},
+                    onFailure: function(response){
+                        $$('.instantrebate-header').each(function (item) {item.addClassName('no-display');});
+                    },
+                    onComplete: function (response) {
+                        customPrompt('instantrebate-pop');
+                        toggleDisplays();
+                    }
+                });
+        }
+    }
+
+    function toggleRebateInfo(className)
+    {
+        $$('.'+className).each(function(item)
+        {
+            item.toggleClassName('no-display');
+        });
+    }
+    //]]>
+</script>

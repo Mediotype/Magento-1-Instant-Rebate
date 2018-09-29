@@ -1,0 +1,71 @@
+<?php
+/** @var $this Mediotype_InstantRebate_Block_Adminhtml_Rebates_Edit_Tab_Info_Products */
+$rebate = $this->getModel();
+$rebateProducts = $this->getRebateProducts();
+$productIds = $this->getData('products');
+?>
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('Rebate Information') ?></h4>
+    </div>
+</div>
+<div id="base_fieldset" class="fieldset fieldset-wide">
+    <div class="hor-scroll">
+        <table id="newProducts" class="grid">
+            <thead>
+                <tr>
+                    <th><?php echo $this->__('Product Name') ?></th>
+                    <th><?php echo $this->__('Max Quantity') ?></th>
+                    <th><?php echo $this->__('Rebate Amount') ?></th>
+                    <th><?php echo $this->__('Sort Order') ?></th>
+                    <th><?php echo $this->__('Remove') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if(count($rebateProducts)): ?>
+                <?php foreach($rebateProducts as $rebateProduct): ?>
+                    <?php if($productIds !== null): ?>
+                        <?php if(($key = array_search($rebateProduct->getData('product_id'), $productIds)) !== false): ?>
+                            <?php unset($productIds[$key]); ?>
+                            <tr>
+                                <?php $currentProduct = Mage::getModel('catalog/product')->load($rebateProduct->getData('product_id')); ?>
+                                <td><?php echo $currentProduct->getName() ?></td>
+                                <td><input type="text" value="<?php echo $rebateProduct->getData('max_instant_rebate_uses') ?>" id="productQty[<?php echo $currentProduct->getId() ?>]" name="productQty[<?php echo $currentProduct->getId() ?>]" class="validate-zero-or-greater input-text" /></td>
+                                <td><input type="text" value="<?php echo number_format($rebateProduct->getData('instant_rebate_amount'),2) ?>" id="productCost[<?php echo $currentProduct->getId() ?>]" name="productCost[<?php echo $currentProduct->getId() ?>]" class="validate-zero-or-greater input-text" /></td>
+                                <td><input type="text" value="<?php echo number_format($rebateProduct->getData('sort_order')) ?>" id="sortOrder[<?php echo $currentProduct->getId() ?>]" name="sortOrder[<?php echo $currentProduct->getId() ?>]" class="validate-zero-or-greater input-text" /></td>
+                                <td><button class="delete" type="button" onclick="removeProduct(jQuery(this),<?php echo $rebateProduct->getData('product_id') ?>)"><span><span></span></span></button></td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <tr>
+                            <?php $currentProduct = Mage::getModel('catalog/product')->load($rebateProduct->getData('product_id')); ?>
+                            <td><?php echo $currentProduct->getName() ?></td>
+                            <td><input type="text" value="<?php echo $rebateProduct->getData('max_instant_rebate_uses') ?>" id="productQty[<?php echo $currentProduct->getId() ?>]" name="productQty[<?php echo $currentProduct->getId() ?>]" class="validate-zero-or-greater input-text" /></td>
+                            <td><input type="text" value="<?php echo number_format($rebateProduct->getData('instant_rebate_amount'),2) ?>" id="productCost[<?php echo $currentProduct->getId() ?>]" name="productCost[<?php echo $currentProduct->getId() ?>]" class="validate-zero-or-greater input-text" /></td>
+                            <td><input type="text" value="<?php echo number_format($rebateProduct->getData('sort_order')) ?>" id="sortOrder[<?php echo $currentProduct->getId() ?>]" name="sortOrder[<?php echo $currentProduct->getId() ?>]" class="validate-zero-or-greater input-text" /></td>
+                            <td><button class="delete" type="button" onclick="removeProduct(jQuery(this),<?php echo $rebateProduct->getData('product_id') ?>)"><span><span></span></span></button></td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <?php if($productIds): ?>
+                <?php foreach($productIds as $productId): ?>
+                    <tr>
+                    <?php $newProduct = Mage::getModel('catalog/product')->load($productId); ?>
+                        <td><?php echo $newProduct->getName() ?></td>
+                        <td><input type="text" id="productQty[<?php echo $newProduct->getId() ?>]" name="productQty[<?php echo $newProduct->getId() ?>]" class="required-entry validate-zero-or-greater input-text" /></td>
+                        <td><input type="text" id="productCost[<?php echo $newProduct->getId() ?>]" name="productCost[<?php echo $newProduct->getId() ?>]" class="required-entry validate-zero-or-greater input-text" /></td>
+                        <td><input type="text" id="sortOrder[<?php echo $newProduct->getId() ?>]" name="sortOrder[<?php echo $newProduct->getId() ?>]" class="required-entry validate-zero-or-greater input-text" /></td>
+                        <td><button class="delete" type="button"><span><span></span></span></button></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <?php if($productIds == null && !count($rebateProducts)): ?>
+                <tr>
+                    <td colspan="5">No products currently selected</td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

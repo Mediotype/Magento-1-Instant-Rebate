@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @copyright   Copyright (c) 2014 Mediotype (http://www.mediotype.com)
+ *              Copyright, 2014, Mediotype, LLC - US license
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author      Mediotype <diveinto@mediotype.com>
+ */
+-->
+<config>
+    <sections>
+        <instant_rebate_config translate="label" module="mediotype_instant_rebate">
+            <label>Instant Rebate</label>
+            <tab>mediotype</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <!-- New groups go here -->
+                <general translate="label">
+                    <label>Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <rebates_enabled>
+                            <label>Turn on / off instant rebate program</label>
+                            <comment>Enable / Disable the instant rebate out put site wide</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>mediotype_core/system_config_source_onoff</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </rebates_enabled>
+                        <geo_active>
+                            <label>Prompt Only On IP Geo Location Detected?</label>
+                            <comment>Yes / No - Prompt When Geo Location Not Available By Visitor IP Address, If No, form will prompt asking for zip for all visitors</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </geo_active>
+                        <allow_guest>
+                            <label>Allow Guests to Use Rebates</label>
+                            <comment>Enable / Disable Guest Checkout with Rebates</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_guest>
+                        <disable_multishipping_when_rebate_present>
+                            <label>Disable Payment MethodsMulti Shipping On Rebate Present</label>
+                            <comment>Allow multi shipping when checking out with rebate?</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </disable_multishipping_when_rebate_present>
+                        <disabled_payments_when_rebate_present>
+                            <label>Disable Payment Methods On Rebate Present</label>
+                            <comment>Control + Click, select any payment methods that shouldn't be used in checkout when a rebate is being used</comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>mediotype_instant_rebate/system_config_source_disableMethods</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </disabled_payments_when_rebate_present>
+                    </fields>
+                </general>
+                <textedit translate="label">
+                    <label>Editable Text</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <zip_label>
+                            <label>Zip Input Label</label>
+                            <comment>This is the text that shows before the zip input field</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zip_label>
+                        <zip_unavailable>
+                            <label>Rebate Unavailable</label>
+                            <comment>Shows when a user's shipping zip does not match any running programs</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zip_unavailable>
+                        <cart_last_chance>
+                            <label>Cart Rebate Reminder</label>
+                            <comment>Text on the cart page reminding someone eligible for rebates to check for them</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cart_last_chance>
+                        <zip_not_match>
+                            <label>Zip Codes Don't Match</label>
+                            <comment>An error message that pops up when the shipping zip code doesn't match the one given for the rebate</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zip_not_match>
+                    </fields>
+                </textedit>
+            </groups>
+        </instant_rebate_config>
+    </sections>
+</config>

@@ -1,0 +1,10 @@
+<?php
+/**
+ * @var $this Mediotype_InstantRebate_Block_InstantRebate
+ */
+$helper = Mage::helper('mediotype_instant_rebate');
+?>
+<?php if(!is_null($helper->getCustomerZip())): ?>
+<label for="rebate-optin"><?php echo $this->__('I would like more information about rebates') ?></label>
+<input type="checkbox" checked="true" name="rebate-optin" id="rebate-optin" onclick="setOptIn('rebate-optin')" />
+<?php endif; ?>

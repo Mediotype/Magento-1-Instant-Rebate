@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<!--
+/**
+* layout xml for InstantRebate
+-->
+<layout version="0.1.0">
+
+    <default>
+        <reference name="head">
+            <action ifconfig="instant_rebate_config/general/rebates_enabled" method="addCss">
+                <stylesheet>mediotype/instantrebate/css/instantrebate.css</stylesheet>
+            </action>
+            <action ifconfig="instant_rebate_config/general/rebates_enabled" method="addItem">
+                <type>skin_js</type>
+                <name>mediotype/instantrebate/js/instantrebate.js</name>
+                <params/>
+            </action>
+        </reference>
+        <reference name="top.container" ifconfig="instant_rebate_config/general/rebates_enabled">
+            <block type="mediotype_instant_rebate/GeoRebate"
+                   name="instant-rebate-geo"
+                   as="instant-rebate-geo"
+                   template="mediotype/instantrebate/geo.phtml">
+                <block type="mediotype_instant_rebate/InstantRebate"
+                       name="instant-rebate-header"
+                       as="instant-rebate-header"
+                       template="mediotype/instantrebate/header.phtml"/>
+            </block>
+        </reference>
+    </default>
+
+    <mediotype_instant_rebate_instantrebate_getrebates>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/empty.phtml</template>
+            </action>
+        </reference>
+        <reference name="head">
+            <action ifconfig="instant_rebate_config/general/rebates_enabled" method="addCss">
+                <stylesheet>mediotype/instantrebate/css/instantrebate.css</stylesheet>
+            </action>
+            <action ifconfig="instant_rebate_config/general/rebates_enabled" method="addItem">
+                <type>skin_js</type>
+                <name>mediotype/instantrebate/js/instantrebate.js</name>
+                <params/>
+            </action>
+        </reference>
+        <reference name="content" ifconfig="instant_rebate_config/general/rebates_enabled">
+            <action method="unsetChildren"/>
+            <block type="mediotype_instant_rebate/InstantRebate"
+                   name="instant-rebate-rebates"
+                   as="instant-rebate-rebates"
+                   template="mediotype/instantrebate/rebates.phtml"/>
+        </reference>
+    </mediotype_instant_rebate_instantrebate_getrebates>
+
+    <catalog_product_view>
+        <reference name="product.info.extrahint" ifconfig="instant_rebate_config/general/rebates_enabled">
+            <block type="mediotype_instant_rebate/catalog_product_message"
+                   name="instant-rebate-product-message"
+                   as="instant-rebate-product-message"
+                   template="mediotype/instantrebate/catalog/product/message.phtml"/>
+        </reference>
+    </catalog_product_view>
+
+    <checkout_cart_index>
+        <reference name="checkout.cart.methods" ifconfig="instant_rebate_config/general/rebates_enabled">
+            <block type="mediotype_instant_rebate/instantRebate"
+                   name="instant-rebate-lastchance-message"
+                   as="instant-rebate-lastchance-message"
+                   before="checkout.cart.methods.onepage"
+                   template="mediotype/instantrebate/checkout/cart/lastchance.phtml"/>
+        </reference>
+        <reference name="additional.product.info" ifconfig="instant_rebate_config/general/rebates_enabled">
+            <block type="mediotype_instant_rebate/checkout_cart_item_renderer"
+                   name="instant-rebate-cart-message"
+                   as="instant-rebate-cart-message"
+                   template="mediotype/instantrebate/checkout/cart/item/renderer.phtml"/>
+        </reference>
+    </checkout_cart_index>
+
+    <checkout_onepage_index>
+        <reference name="content" ifconfig="instant_rebate_config/general/rebates_enabled">
+            <block type="mediotype_instant_rebate/InstantRebate"
+                   name="instant-rebate-zip-match"
+                   as="instant-rebate-zip-match"
+                   after="-"
+                   template="mediotype/instantrebate/checkout/onepage.phtml"/>
+        </reference>
+    </checkout_onepage_index>
+
+    <checkout_onepage_review>
+        <reference name="checkout.onepage.review.info.items.before" ifconfig="instant_rebate_config/general/rebates_enabled">
+            <block type="mediotype_instant_rebate/InstantRebate"
+                   name="instant-rebate-optin"
+                   as="instant-rebate-optin"
+                   template="mediotype/instantrebate/checkout/onepage/review/optin.phtml"/>
+        </reference>
+    </checkout_onepage_review>
+
+    <checkout_onepage_success>
+        <reference name="content" ifconfig="instant_rebate_config/general/rebates_enabled">
+            <block type="mediotype_instant_rebate/checkout_onepage_success"
+                   name="instant-rebate-success"
+                   as="instant-rebate-success"
+                   template="mediotype/instantrebate/checkout/success.phtml" />
+        </reference>
+    </checkout_onepage_success>
+
+</layout>
